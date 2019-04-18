@@ -52,12 +52,23 @@
 
         // Select Location
 
+        var allLocations = [];
+
         $.getJSON("Locations.json", function(response){
             console.log(response.data[0].id);
         })
 
         $.getJSON("alldata.json", function(response){
             console.log(response.data.length);
+            for (i = 0; i < response.data.length; i++) {
+                allLocations.push(response.data[i].id);
+            }
+            console.log(allLocations.length);
+            var randomIndex = Math.floor(Math.random() * allLocations.length);
+            var randomID = allLocations[randomIndex];
+            console.log("Beer name: " + response.data[randomIndex].name);
+            console.log("Category: " + response.data[randomIndex].style.category.name);
+            console.log("Style: " + response.data[randomIndex].style.name);
         })
 
         // Random
