@@ -38,6 +38,7 @@
             <option value="">Select beer</option>
         </select>
     </div>
+    <div id="results4"></div>
 
     <script>
 
@@ -176,13 +177,18 @@
             var type_id = $(this).val();
             if (type_id != '') {
                 load_json_data('beer', type_id);
-                
+
             }
             else {
                 $('#beer').html('<option value="">Select beer</option>');
             }
         });
-        
+        $(document).on('change', '#beer', function () {
+            var aux_id = $(this).val();
+            console.log(aux_id);
+            load_json_data('beer', aux_id);
+            $('#results4').text(aux_id);
+        })
     
 
 
