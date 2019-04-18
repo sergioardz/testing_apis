@@ -12,8 +12,8 @@
 <body>
     <div id="buttons">
         <button id="select">Select</button>
-        <button id="select">Current</button>
-        <button id="select">Random</button>
+        <button id="current">Current</button>
+        <button id="random">Random</button>
     </div>
     <div id="results1"></div>
     <div id="results1"></div>
@@ -21,23 +21,35 @@
     <script>
 
         var queryURLIP = "https://api.ipify.org?";
-        console.log(queryURLIP);
+        // console.log(queryURLIP);
 
         const apiKeyIP = "at_knMW8P4hXMF72fVn0z8jG2ZnwPsAy";
 
-        $.ajax({
-            url: queryURLIP, method: "GET"
-        })
-            .done(function (response) {
-                console.log(response);
-                var currentIP = response;
-                $.ajax({
-                    url: "https://geo.ipify.org/api/v1", dataType: "json", data: { apiKey: apiKeyIP, ipAddress: currentIP }
-                })
-                    .done(function (response) {
-                        console.log(response);
-                    })
+        $("#current").on("click", getcurrentIP);
+
+        function getcurrentIP() {
+            $.ajax({
+                url: queryURLIP, method: "GET"
             })
+                .done(function (response) {
+                    console.log(response);
+                    var currentIP = response;
+                    $.ajax({
+                        url: "https://geo.ipify.org/api/v1", 
+                        dataType: "json", 
+                        data: { apiKey: apiKeyIP, ipAddress: currentIP }
+                    })
+                        .done(function (response) {
+                            console.log("Ciudad: " + response.location.city);
+                            $("#results1").text("Current Location: " + response.location.city);
+                            console.log(response);
+                        })
+                })
+        }
+
+        // Random
+
+
 
     </script>
 
