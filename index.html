@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Testing APIs</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -16,10 +17,12 @@
         <button id="random">Random</button>
     </div>
     <div id="results1"></div>
-    <div id="results1"></div>
+    <div id="results2"></div>
+    <div id="results3"></div>
 
     <script>
 
+        // Current
         var queryURLIP = "https://api.ipify.org?";
         // console.log(queryURLIP);
 
@@ -35,21 +38,38 @@
                     console.log(response);
                     var currentIP = response;
                     $.ajax({
-                        url: "https://geo.ipify.org/api/v1", 
-                        dataType: "json", 
+                        url: "https://geo.ipify.org/api/v1",
+                        dataType: "json",
                         data: { apiKey: apiKeyIP, ipAddress: currentIP }
                     })
                         .done(function (response) {
                             console.log("Ciudad: " + response.location.city);
-                            $("#results1").text("Current Location: " + response.location.city);
+                            $("#results2").text("Current Location: " + response.location.city);
                             console.log(response);
                         })
                 })
         }
 
+        // Select Location
+
+        
+
         // Random
 
+        // const apikeyBDB = "/?key=9968a2f544553322a8a49f3fb2916c09";
+        // var baseURL = "https://sandbox-api.brewerydb.com/v2/";
+        // var randomBeer = "beer/random";
+        // var queryURLrandom = baseURL + randomBeer + apikeyBDB + "&withBreweries=Y";
+        // console.log(queryURLrandom);
+        // var locations = [];
 
+        // $.ajax({
+        //     url: queryURLrandom
+        // })
+        //     .done(function (response) {
+        //         console.log(response);
+        //         $("#results3").text("Beer Selected: " + response.data);
+        //     })
 
     </script>
 
