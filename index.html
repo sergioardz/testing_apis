@@ -89,8 +89,14 @@
                             console.log(locationID);
                         }
                     }
-                    $.getJSON("Locations.json", function(data){
-                        console.log(data);
+                    $.getJSON("Locations.json", function(response){
+                        console.log(response.data.length);
+                        for (i = 0; i < response.data.length; i++) {
+                            if (locationID === response.data[i].id) {
+                                console.log(response.data[i].locality);
+                                console.log(response.data[i].region);
+                            }
+                        }
                     })
 
                 })
