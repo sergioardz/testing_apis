@@ -176,6 +176,7 @@
             var type_id = $(this).val();
             if (type_id != '') {
                 load_json_data('beer', type_id);
+                console.log(type_id);
             }
             else {
                 $('#beer').html('<option value="">Select beer</option>');
