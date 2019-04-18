@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Testing APIs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
-    
+    <div id="buttons">
+        <button id="select">Select</button>
+        <button id="select">Current</button>
+        <button id="select">Random</button>
+    </div>
+    <div id="results1"></div>
+    <div id="results1"></div>
+
+    <script>
+
+        var queryURLIP = "https://api.ipify.org?";
+        console.log(queryURLIP);
+
+        const apiKeyIP = "at_knMW8P4hXMF72fVn0z8jG2ZnwPsAy";
+
+        $.ajax({
+            url: queryURLIP, method: "GET"
+        })
+            .done(function (response) {
+                console.log(response);
+                var currentIP = response;
+                $.ajax({
+                    url: "https://geo.ipify.org/api/v1", dataType: "json", data: { apiKey: apiKeyIP, ipAddress: currentIP }
+                })
+                    .done(function (response) {
+                        console.log(response);
+                    })
+            })
+
+    </script>
+
+
 </body>
+
 </html>
