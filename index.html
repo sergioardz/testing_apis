@@ -83,8 +83,8 @@
                 }
                 $.getJSON("master.json", function(master){
                     for (i = 1; i < master.data.length; i++) {
-                        if (randomID === master.data.C[i]) {
-                            var locationID = master.data.G[i]
+                        if (randomID === master.data[i].C) {
+                            var locationID = master.data[i].G;
                         }
                     }
                     console.log(locationID);
