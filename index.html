@@ -20,6 +20,7 @@
     <div id="results1"></div>
     <div id="results2"></div>
     <div id="results3"></div>
+    <div id="results4"></div>
     <div class="container" style="width:600px;">
         <h2>Make your beer choice!</h2><br /><br />
         <select name="category" id="category" class="form-control input-lg">
@@ -176,11 +177,17 @@
             var type_id = $(this).val();
             if (type_id != '') {
                 load_json_data('beer', type_id);
-                console.log(beer_id);
+                
             }
             else {
                 $('#beer').html('<option value="">Select beer</option>');
             }
+        });
+        $(document).on('change', '#beer', function() {
+            var aux_id = $(this).val();
+            load_json_data('beer', aux_id);
+            console.log(aux_id);
+            $("#results4").text("<p> Beer Id: " + aux_id + "</p>");
         });
     
 
