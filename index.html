@@ -56,6 +56,10 @@
             console.log(response.data[0].id);
         })
 
+        $.getJSON("allbeers.json", function(response){
+            console.log(response.data.length);
+        })
+
         // Random
 
         // const apikeyBDB = "/?key=9968a2f544553322a8a49f3fb2916c09";
