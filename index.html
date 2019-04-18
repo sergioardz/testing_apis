@@ -68,9 +68,18 @@
                 console.log(allLocations.length);
                 var randomIndex = Math.floor(Math.random() * allLocations.length);
                 var randomID = allLocations[randomIndex];
+                console.log(randomID);
                 console.log("Beer name: " + response.data[randomIndex].name);
                 console.log("Category: " + response.data[randomIndex].style.category.name);
                 console.log("Style: " + response.data[randomIndex].style.name);
+                var selectedBeer = $("<p>").text("Randomly selected beer: " + response.data[randomIndex].name);
+                $("#results3").append(selectedBeer);
+                if (response.data[randomIndex].hasOwnProperty("labels")) {
+                    $("#results3").append("<img src=" + response.data.labels.medium + ">");
+                }
+                else {
+                    $("#results3").append("<p>No label to display</p>");
+                }
             })
         }
 
