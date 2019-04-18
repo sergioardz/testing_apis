@@ -89,6 +89,9 @@
                             console.log(locationID);
                         }
                     }
+                    $.getJSON("Locations.json", function(data){
+                        console.log(data);
+                    })
 
                 })
                 randomIndex = 0;
