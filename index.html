@@ -239,10 +239,33 @@
 
         // Beer Hunt
 
-        $("#beerhunt").on("click", function (event) {
-            event.preventDefault();
-            load_json_data("category");
-            $(document).on('change', '#category', function () {
+        
+            
+
+        
+
+        $("#beerhunt").on("click", load_json_data('category'));
+
+        function load_json_data(id, parent_id) {
+            var html_code = '';
+            $.getJSON('beers.json', function (data) {
+                html_code += '<option value="">Select ' + id + '</option>';
+                $.each(data, function (key, value) {
+                    if (id == 'category') {
+                        if (value.parent_id == '0') {
+                            html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                        }
+                    }
+                    else {
+                        if (value.parent_id == parent_id) {
+                            html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                        }
+                    }
+                });
+                $('#' + id).html(html_code);
+            });
+        }
+        $(document).on('change', '#category', function () {
                 var category_id = $(this).val();
                 if (category_id != '') {
                     load_json_data('type', category_id);
@@ -304,30 +327,6 @@
                     })
                 })
             })
-
-        });
-
-        // $("#beerhunt").on("click", load_json_data('category'));
-
-        function load_json_data(id, parent_id) {
-            var html_code = '';
-            $.getJSON('beers.json', function (data) {
-                html_code += '<option value="">Select ' + id + '</option>';
-                $.each(data, function (key, value) {
-                    if (id == 'category') {
-                        if (value.parent_id == '0') {
-                            html_code += '<option value="' + value.id + '">' + value.name + '</option>';
-                        }
-                    }
-                    else {
-                        if (value.parent_id == parent_id) {
-                            html_code += '<option value="' + value.id + '">' + value.name + '</option>';
-                        }
-                    }
-                });
-                $('#' + id).html(html_code);
-            });
-        }
 
 
 
