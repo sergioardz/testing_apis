@@ -320,38 +320,38 @@
                             console.log("Beer Name: " + response.data[i].name)
                             $("#results4").text("Beer Selected: " + response.data[i].name);
                             if (response.data[i].hasOwnProperty("labels")) {
-                                $("#results3").append("<img src=" + response.data[i].labels.medium + ">");
+                                $("#results4").append("<img src=" + response.data[i].labels.medium + ">");
                             }
                             else {
-                                $("#results3").append("<p>No label to display</p>");
+                                $("#results4").append("<p>No label to display</p>");
                             }
                             if (response.data[i].hasOwnProperty("description")) {
-                                $("#results3").append("<p>Beer Description: " + response.data[i].description + "</p>");
+                                $("#results4").append("<p>Beer Description: " + response.data[i].description + "</p>");
                             }
                             else {
-                                $("#results3").append("<p>Beer Description: Not available");
+                                $("#results4").append("<p>Beer Description: Not available");
                             }
                             if (response.data[i].hasOwnProperty("style")) {
-                                $("#results3").append("<p>Beer Category: " + response.data[i].style.category.name + "</p>");
-                                $("#results3").append("<p>Beer Style: " + response.data[i].style.name + "</p>");
-                                $("#results3").append("<p>Style description: " + response.data[i].style.description + "</p>");
+                                $("#results4").append("<p>Beer Category: " + response.data[i].style.category.name + "</p>");
+                                $("#results4").append("<p>Beer Style: " + response.data[i].style.name + "</p>");
+                                $("#results4").append("<p>Style description: " + response.data[i].style.description + "</p>");
                             }
                             else {
-                                $("#results3").append("<p>Beer Category: Not available</p>");
-                                $("#results3").append("<p>Beer Style: Not available</p>");
-                                $("#results3").append("<p>Style description: Not available</p>");
+                                $("#results4").append("<p>Beer Category: Not available</p>");
+                                $("#results4").append("<p>Beer Style: Not available</p>");
+                                $("#results4").append("<p>Style description: Not available</p>");
                             }
                             if (response.data[i].hasOwnProperty("abv")) {
-                                $("#results3").append("<p>Alcohol by volume: " + response.data[i].abv + "%</p>");
+                                $("#results4").append("<p>Alcohol by volume: " + response.data[i].abv + "%</p>");
                             }
                             else {
-                                $("#results3").append("<p>Alcohol by volume: Not available");
+                                $("#results4").append("<p>Alcohol by volume: Not available");
                             }
                             if (response.data[i].hasOwnProperty("available")) {
-                                $("#results3").append("<p>Availability: " + response.data[i].available.name + "." + response.data[i].available.description + "</p>");
+                                $("#results4").append("<p>Availability: " + response.data[i].available.name + "." + response.data[i].available.description + "</p>");
                             }
                             else {
-                                $("#results3").append("<p>Availability: Not defined");
+                                $("#results4").append("<p>Availability: Not defined");
                             }
 
                         }
