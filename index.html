@@ -160,7 +160,19 @@
                 var randomIndex = Math.floor(Math.random() * allLocations.length);
                 var randomID = allLocations[randomIndex];
                 console.log(randomID);
+                if (response.data[randomIndex].hasOwnProperty("labels")) {
+                    $("#results3").append("<img src=" + response.data[randomIndex].labels.medium + ">");
+                }
+                else {
+                    $("#results3").append("<p>No label to display</p>");
+                }
                 $("#results3").append("<p>Selected beer: " + response.data[randomIndex].name + "</p>");
+                if (response.data[randomIndex].hasOwnProperty("description")) {
+                    $("#results3").append("<p>Beer Description: " + response.data[randomIndex].description + "</p>");
+                }
+                else {
+                    $("#results3").append("<p>Beer Description: Not available");
+                }
                 if (response.data[randomIndex].hasOwnProperty("style")) {
                     $("#results3").append("<p>Beer Category: " + response.data[randomIndex].style.category.name + "</p>");
                     $("#results3").append("<p>Beer Style: " + response.data[randomIndex].style.name + "</p>");
@@ -171,12 +183,12 @@
                     $("#results3").append("<p>Beer Style: Not available</p>");
                     $("#results3").append("<p>Style description: Not available</p>");
                 }
-                if (response.data[randomIndex].hasOwnProperty("description")) {
-                    $("#results3").append("<p>Beer Description: " + response.data[randomIndex].description + "</p>");
-                }
-                else {
-                    $("#results3").append("<p>Beer Description: Not available");
-                }
+                // if (response.data[randomIndex].hasOwnProperty("description")) {
+                //     $("#results3").append("<p>Beer Description: " + response.data[randomIndex].description + "</p>");
+                // }
+                // else {
+                //     $("#results3").append("<p>Beer Description: Not available");
+                // }
                 if (response.data[randomIndex].hasOwnProperty("abv")) {
                     $("#results3").append("<p>Alcohol by volume: " + response.data[randomIndex].abv + "%</p>");
                 }
@@ -192,14 +204,14 @@
                 console.log("Beer name: " + response.data[randomIndex].name);
                 console.log("Category: " + response.data[randomIndex].style.category.name);
                 console.log("Style: " + response.data[randomIndex].style.name);
-                var selectedBeer = $("<p>").text("Randomly selected beer: " + response.data[randomIndex].name);
-                $("#results3").append(selectedBeer);
-                if (response.data[randomIndex].hasOwnProperty("labels")) {
-                    $("#results3").append("<img src=" + response.data[randomIndex].labels.medium + ">");
-                }
-                else {
-                    $("#results3").append("<p>No label to display</p>");
-                }
+                // var selectedBeer = $("<p>").text("Randomly selected beer: " + response.data[randomIndex].name);
+                // $("#results3").append(selectedBeer);
+                // if (response.data[randomIndex].hasOwnProperty("labels")) {
+                //     $("#results3").append("<img src=" + response.data[randomIndex].labels.medium + ">");
+                // }
+                // else {
+                //     $("#results3").append("<p>No label to display</p>");
+                // }
                 $.getJSON("master.json", function (master) {
                     console.log(master.data.length);
                     for (i = 1; i < master.data.length; i++) {
