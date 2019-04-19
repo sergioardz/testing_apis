@@ -22,7 +22,7 @@
     </style>
 
 <body>
-    <div id="buttons">
+    <div id="buttons"><br>
         <button id="location">Location</button>
         <button id="select">Select</button>
         <button id="current">Current</button>
@@ -95,12 +95,12 @@
         var infowindow;
 
         function initMap() {
-            var houston = new google.maps.LatLng(39.7392, -104.9903);
+            var houston = new google.maps.LatLng(29.7604, -95.3698);
             infowindow = new google.maps.InfoWindow();
             map = new google.maps.Map(
                 document.getElementById("map"), { center: houston, zoom: 15 });
             var request = {
-                query: "The Ale House at Amato's",
+                query: "Spindletap Brewery",
                 fields: ["name", "geometry"],
             };
             service = new google.maps.places.PlacesService(map);
