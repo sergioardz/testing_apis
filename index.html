@@ -190,7 +190,7 @@
             $('#results4').text(aux_id);
             $.getJSON("beers2.json", function (response) {
                 var aux1 = aux_id - 1;
-                var aux_beerId = response.data[aux1].id;
+                var aux_beerId = response.data[aux1].beer_id;
                 console.log(aux_beerId);
                 console.log(response.data[aux1]);
                 $('#results4').text("Beer Selected: " + response.data[aux1].beer_id);
