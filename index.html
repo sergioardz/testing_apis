@@ -189,7 +189,9 @@
             load_json_data('beer', aux_id);
             $('#results4').text(aux_id);
             $.getJSON("beers2.json", function(response) {
-                console.log(response.data[651]);
+                var aux1 = aux_id - 1;
+                console.log(response.data[aux1]);
+                $('#results4').text("Beer Selected: " + response.data[aux1].beer_id);
             })
         })
     
