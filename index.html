@@ -226,6 +226,7 @@
                             if (locationID === response.data[i].id) {
                                 console.log(response.data[i].locality);
                                 console.log(response.data[i].region);
+                                $("#results3").append("<p>This beer you can find in: " + response.data[i].locality + ", " + response.data[i].region + "</p>");
                             }
                         }
                     })
@@ -240,6 +241,7 @@
 
         $("#beerhunt").on("click", function (event) {
             event.preventDefault();
+            load_json_data("category");
             $(document).on('change', '#category', function () {
                 var category_id = $(this).val();
                 if (category_id != '') {
