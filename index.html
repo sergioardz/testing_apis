@@ -193,13 +193,15 @@
                 var aux_beerId = response.data[aux1].beer_id;
                 console.log(aux_beerId);
                 console.log(response.data[aux1]);
-                $('#results4').text("Beer Selected: " + response.data[aux1].beer_id);
+                // $('#results4').text("Beer Selected: " + response.data[aux1].beer_id);
                 $.getJSON("alldata.json", function (response) {
                     console.log(response);
                     console.log(response.data.length);
                     for (i = 0; i < response.data.length; i++) {
                         if (aux_beerId === response.data[i].id) {
                             console.log("Beer Name: " + response.data[i].name)
+                            $('#results4').text("Beer Selected: " + response.data[i].name);
+
                         }
                     }
 
