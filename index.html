@@ -319,19 +319,19 @@
                         if (aux_beerId === response.data[i].id) {
                             console.log("Beer Name: " + response.data[i].name)
                             $("#results4").text("Beer Selected: " + response.data[i].name);
-                            if (response.data[randomIndex].hasOwnProperty("labels")) {
+                            if (response.data[i].hasOwnProperty("labels")) {
                                 $("#results3").append("<img src=" + response.data[i].labels.medium + ">");
                             }
                             else {
                                 $("#results3").append("<p>No label to display</p>");
                             }
-                            if (response.data[randomIndex].hasOwnProperty("description")) {
+                            if (response.data[i].hasOwnProperty("description")) {
                                 $("#results3").append("<p>Beer Description: " + response.data[i].description + "</p>");
                             }
                             else {
                                 $("#results3").append("<p>Beer Description: Not available");
                             }
-                            if (response.data[randomIndex].hasOwnProperty("style")) {
+                            if (response.data[i].hasOwnProperty("style")) {
                                 $("#results3").append("<p>Beer Category: " + response.data[i].style.category.name + "</p>");
                                 $("#results3").append("<p>Beer Style: " + response.data[i].style.name + "</p>");
                                 $("#results3").append("<p>Style description: " + response.data[i].style.description + "</p>");
@@ -341,13 +341,13 @@
                                 $("#results3").append("<p>Beer Style: Not available</p>");
                                 $("#results3").append("<p>Style description: Not available</p>");
                             }
-                            if (response.data[randomIndex].hasOwnProperty("abv")) {
+                            if (response.data[i].hasOwnProperty("abv")) {
                                 $("#results3").append("<p>Alcohol by volume: " + response.data[i].abv + "%</p>");
                             }
                             else {
                                 $("#results3").append("<p>Alcohol by volume: Not available");
                             }
-                            if (response.data[randomIndex].hasOwnProperty("available")) {
+                            if (response.data[i].hasOwnProperty("available")) {
                                 $("#results3").append("<p>Availability: " + response.data[i].available.name + "." + response.data[i].available.description + "</p>");
                             }
                             else {
