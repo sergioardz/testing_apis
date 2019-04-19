@@ -81,8 +81,10 @@
                         data: { apiKey: apiKeyIP, ipAddress: currentIP }
                     })
                         .done(function (response) {
-                            console.log("Ciudad: " + response.location.city);
-                            $("#results2").text("Current Location: " + response.location.city);
+                            console.log("City: " + response.location.city);
+                            console.log("Latitude : " + response.location.lat);
+                            console.log("Longitude : " + response.location.lng);
+                            $("#results2").text("Current Location: " + response.location.city + ", " + response.location.region + ", " + response.location.country);
                             console.log(response);
                         })
                 })
