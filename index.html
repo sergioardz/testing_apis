@@ -160,6 +160,9 @@
                 var randomIndex = Math.floor(Math.random() * allLocations.length);
                 var randomID = allLocations[randomIndex];
                 console.log(randomID);
+                if (response.data[randomIndex].hasOwnProperty("description")) {
+                    $("#results3").append("<p>Beer Description: " + response.data[randomIndex].description + "</p>");
+                }
                 console.log("Beer name: " + response.data[randomIndex].name);
                 console.log("Category: " + response.data[randomIndex].style.category.name);
                 console.log("Style: " + response.data[randomIndex].style.name);
