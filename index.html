@@ -197,11 +197,11 @@
                 $.getJSON("alldata.json", function (response) {
                     console.log(response);
                     console.log(response.data.length);
-                    // for (i = 0; i < response.data.length; i++) {
-                    //     if (aux_beerId === response.data[i].id) {
-                    //         console.log("Beer Name: " + response.data[i].name)
-                    //     }
-                    // }
+                    for (i = 0; i < response.data.length; i++) {
+                        if (aux_beerId === response.data[i].id) {
+                            console.log("Beer Name: " + response.data[i].name)
+                        }
+                    }
 
                     
                 })
