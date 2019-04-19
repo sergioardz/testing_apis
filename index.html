@@ -12,6 +12,7 @@
 
 <body>
     <div id="buttons">
+        <button id="location">Location</button>
         <button id="select">Select</button>
         <button id="current">Current</button>
         <button id="random">Random</button>
@@ -40,9 +41,13 @@
     </div>
     <div id="results4"></div>
 
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw8hFnyQv4weAe34Uhrba3H22o52PYXKc&callback=initMap&libraries=places"
+        async defer></script>
     <script>
 
-        // Current
+        // Current with IP
         var queryURLIP = "https://api.ipify.org?";
         // console.log(queryURLIP);
 
@@ -69,6 +74,59 @@
                         })
                 })
         }
+
+        // Current with Google Maps
+
+        var map;
+        var service;
+        var infowindow;
+
+        function initMap() {
+            var houston = new google.maps.LatLng(39.7392, -104.9903);
+            infowindow = new google.maps.InfoWindow();
+            map = new google.maps.Map(
+                document.getElementById("map"), { center: houston, zoom: 15 });
+            var request = {
+                query: "The Ale House at Amato's",
+                fields: ["name", "geometry"],
+            };
+            service = new google.maps.places.PlacesService(map);
+            service.findPlaceFromQuery(request, function (results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        createMarker(results[i]);
+                    }
+                    map.setCenter(results[0].geometry.location);
+                }
+            });
+        }
+        function createMarker(place) {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.setContent(place.name);
+                infowindow.open(map, this);
+            });
+        }
+
+        $("#location").click(function () {
+            if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function (position) {
+                console.log(position);
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                console.log("Latitude: " + lat);
+                console.log("Longitude: " + lng);
+                $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=false&key=AIzaSyDw8hFnyQv4weAe34Uhrba3H22o52PYXKc", function (data) {
+                    console.log(data);
+                    console.log(data.results[6].formatted_address);
+                })
+            });
+            else
+                console.log("geolocation is not supported");
+        });
+
 
         // Random
 
@@ -205,7 +263,7 @@
                         }
                     }
 
-                    
+
                 })
             })
         })
