@@ -238,7 +238,74 @@
 
         // Beer Hunt
 
-        $("#beerhunt").on("click", load_json_data('category'));
+        $("#beerhunt").on("click", function (event) {
+            event.preventDefault();
+            $(document).on('change', '#category', function () {
+                var category_id = $(this).val();
+                if (category_id != '') {
+                    load_json_data('type', category_id);
+                    //probando cambio de todo
+                    $('#brewery').html('<option value="">Select brewery</option>');
+                    $('#beer').html('<option value="">Select beer</option>');
+                }
+                else {
+                    $('#type').html('<option value="">Select type</option>');
+                    $('#brewery').html('<option value="">Select brewery</option>');
+                    $('#beer').html('<option value="">Select beer</option>');
+
+                }
+            });
+            $(document).on('change', '#type', function () {
+                var type_id = $(this).val();
+                if (type_id != '') {
+                    load_json_data('brewery', type_id);
+                    $('#beer').html('<option value="">Select beer</option>');
+                }
+                else {
+                    $('#brewery').html('<option value="">Select brewery</option>');
+                    $('#beer').html('<option value="">Select beer</option>');
+                }
+            });
+            $(document).on('change', '#brewery', function () {
+                var type_id = $(this).val();
+                if (type_id != '') {
+                    load_json_data('beer', type_id);
+
+                }
+                else {
+                    $('#beer').html('<option value="">Select beer</option>');
+                }
+            });
+            $(document).on('change', '#beer', function () {
+                var aux_id = $(this).val();
+                console.log(aux_id);
+                load_json_data('beer', aux_id);
+                $('#results4').text(aux_id);
+                $.getJSON("beers2.json", function (response) {
+                    var aux1 = aux_id - 1;
+                    var aux_beerId = response.data[aux1].beer_id;
+                    console.log(aux_beerId);
+                    console.log(response.data[aux1]);
+                    // $('#results4').text("Beer Selected: " + response.data[aux1].beer_id);
+                    $.getJSON("alldata.json", function (response) {
+                        console.log(response);
+                        console.log(response.data.length);
+                        for (i = 0; i < response.data.length; i++) {
+                            if (aux_beerId === response.data[i].id) {
+                                console.log("Beer Name: " + response.data[i].name)
+                                $('#results4').text("Beer Selected: " + response.data[i].name);
+
+                            }
+                        }
+
+
+                    })
+                })
+            })
+
+        });
+
+        // $("#beerhunt").on("click", load_json_data('category'));
 
         function load_json_data(id, parent_id) {
             var html_code = '';
@@ -259,68 +326,8 @@
                 $('#' + id).html(html_code);
             });
         }
-        $(document).on('change', '#category', function () {
-            var category_id = $(this).val();
-            if (category_id != '') {
-                load_json_data('type', category_id);
-                //probando cambio de todo
-                $('#brewery').html('<option value="">Select brewery</option>');
-                $('#beer').html('<option value="">Select beer</option>');
-            }
-            else {
-                $('#type').html('<option value="">Select type</option>');
-                $('#brewery').html('<option value="">Select brewery</option>');
-                $('#beer').html('<option value="">Select beer</option>');
-
-            }
-        });
-        $(document).on('change', '#type', function () {
-            var type_id = $(this).val();
-            if (type_id != '') {
-                load_json_data('brewery', type_id);
-                $('#beer').html('<option value="">Select beer</option>');
-            }
-            else {
-                $('#brewery').html('<option value="">Select brewery</option>');
-                $('#beer').html('<option value="">Select beer</option>');
-            }
-        });
-        $(document).on('change', '#brewery', function () {
-            var type_id = $(this).val();
-            if (type_id != '') {
-                load_json_data('beer', type_id);
-
-            }
-            else {
-                $('#beer').html('<option value="">Select beer</option>');
-            }
-        });
-        $(document).on('change', '#beer', function () {
-            var aux_id = $(this).val();
-            console.log(aux_id);
-            load_json_data('beer', aux_id);
-            $('#results4').text(aux_id);
-            $.getJSON("beers2.json", function (response) {
-                var aux1 = aux_id - 1;
-                var aux_beerId = response.data[aux1].beer_id;
-                console.log(aux_beerId);
-                console.log(response.data[aux1]);
-                // $('#results4').text("Beer Selected: " + response.data[aux1].beer_id);
-                $.getJSON("alldata.json", function (response) {
-                    console.log(response);
-                    console.log(response.data.length);
-                    for (i = 0; i < response.data.length; i++) {
-                        if (aux_beerId === response.data[i].id) {
-                            console.log("Beer Name: " + response.data[i].name)
-                            $('#results4').text("Beer Selected: " + response.data[i].name);
-
-                        }
-                    }
 
 
-                })
-            })
-        })
 
 
 
