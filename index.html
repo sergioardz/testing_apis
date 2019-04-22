@@ -11,9 +11,9 @@
 </head>
 <style>
     #map {
-            height: 300px;
-            width: 450px;
-        }
+        height: 300px;
+        width: 450px;
+    }
 
     #results1 {
         margin: auto;
@@ -220,21 +220,36 @@
                     console.log(master.data.length);
                     for (i = 1; i < master.data.length; i++) {
                         if (randomID === master.data[i].C) {
-                            var locationID = master.data[i].G;
-                            console.log(locationID);
+                            // var locationID = master.data[i].G;
+                            var breweryID = master.data[i].F;
+                            console.log("Brewery ID: " + breweryID);
+                            // console.log("Location ID: " + locationID);
                         }
                     }
-                    $.getJSON("Locations.json", function (response) {
-                        console.log(response.data.length);
+                    $.getJSON("breweries.json", function (response) {
+                        // console.log(response.data.length);
                         for (i = 0; i < response.data.length; i++) {
-                            if (locationID === response.data[i].id) {
-                                console.log(response.data[i].locality);
-                                console.log(response.data[i].region);
-                                $("#results3").append("<p>This beer you can find in: " + response.data[i].locality + ", " + response.data[i].region + "</p>");
+                            if (breweryID === response.data[i].id) {
+                                if (response.data[i].nloc > 1) {
+                                    locationID = response.data[i].locations[Math.floor(Math.random() * response.data[i].nloc)];
+                                    console.log("Location ID: " + locationID);
+                                }
+                                else {
+                                    locationID = response.data[i].locations;
+                                    console.log("Location ID: " + locationID);
+                                }
+                                $.getJSON("Locations.json", function (response) {
+                                    for (i = 0; i < response.data.length; i++) {
+                                        if (locationID === response.data[i].id) {
+                                            console.log(response.data[i].locality);
+                                            console.log(response.data[i].region);
+                                            $("#results3").append("<p>This beer you can find in: " + response.data[i].locality + ", " + response.data[i].region + "</p>");
+                                        }
+                                    }
+                                })
                             }
                         }
                     })
-
                 })
                 randomIndex = 0;
                 allLocations = [];
