@@ -223,7 +223,6 @@
                             // var locationID = master.data[i].G;
                             var breweryID = master.data[i].F;
                             console.log("Brewery ID: " + breweryID);
-                            console.log("Brewery Name: " + response.data[i].name);
                             // console.log("Location ID: " + locationID);
                         }
                     }
@@ -231,6 +230,7 @@
                         // console.log(response.data.length);
                         for (i = 0; i < response.data.length; i++) {
                             if (breweryID === response.data[i].id) {
+                                console.log("Brewery Name: " + response.data[i].name);
                                 if (response.data[i].nloc > 1) {
                                     locationID = response.data[i].locations[Math.floor(Math.random() * response.data[i].nloc)];
                                     console.log("Location ID: " + locationID);
