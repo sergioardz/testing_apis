@@ -125,6 +125,9 @@
 
         function closestLoc() {
             $.getJSON("Locations.json", function (response) {
+                var latA = response.data[0].latitude;
+                var lngA = response.data[0].longitude;
+                console.log(latA + ", " + lngA);
                 console.log(distance(myLat, myLng, response.data[0].latitude, response.data[0].longitude, unit));
                 // for (i = 0; i < response.data.length; i++) {
                 //     var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
