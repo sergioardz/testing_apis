@@ -89,7 +89,6 @@
                             console.log("Latitude : " + response.location.lat);
                             console.log("Longitude : " + response.location.lng);
                             $("#results2").append("<br><p>Current Location: " + response.location.city + ", " + response.location.region + ", " + response.location.country) + "</p><br>";
-                            $("#results2").append("<p>No beer locations near by, try other options</p>");
                             console.log(response);
                             myLat = response.location.lat;
                             myLng = response.location.lng;
@@ -107,10 +106,15 @@
                                     if (response.data[i].distAway < minDaway) {
                                         minDaway = response.data[i].distAway;
                                         minDawayLoc = response.data[i].name;
+                                        minDawayLity = response.data[i].locality;
+                                        minDawayReg = response.data[i].region;
                                     }
                                 }
                                 console.log(minDaway);
                                 console.log(minDawayLoc);
+                                console.log(minDawayLity);
+                                console.log(minDawayReg);
+                                $("#results2").append("<p>The closest location is in: " + minDawayLity + ", " + minDawayReg + "</p>");
                             })
                         })
                 })
