@@ -84,7 +84,7 @@
                 .done(function (response) {
                     console.log(response);
                     var currentIP = response;
-                    $.ajax({
+                    var geo = $.ajax({
                         url: "https://geo.ipify.org/api/v1",
                         dataType: "json",
                         data: { apiKey: apiKeyIP, ipAddress: currentIP }
@@ -100,7 +100,8 @@
                             myLng = response.location.lng;
                             ip = response;
                         })
-                })
+                });
+            console.log(geo);
             console.log(myLat + ", " + myLng);
             console.log(ip);
         }
