@@ -127,14 +127,14 @@
                                 var myLatLng = {lat: minDawayLat, lng: minDawayLng};
                                 var auxquery = minDawayLoc + " " + minDawayLity + ", " + minDawayReg;
                                 console.log(auxquery);
-                                var closeLoc = new google.maps.LatLng(minDawayLat, minDawayLng);
+                                var closeLoc = new google.maps.LatLng(30.267153, -97.743057);
                                 infowindow = new google.maps.InfoWindow();
                                 map = new google.maps.Map(
                                     document.getElementById("map"), { center: closeLoc, zoom: 10 });
                                 var marker = new google.maps.Marker({
                                     position: myLatLng,
                                     map: map,
-                                    title: minDawayLoc
+                                    title: auxquery
                                 });
                                     // var request = {
                                     //     query: "Oskar Blues Austin, Texas",
