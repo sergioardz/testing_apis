@@ -95,8 +95,8 @@
                             $("#results2").append("<br><p>Current Location: " + response.location.city + ", " + response.location.region + ", " + response.location.country) + "</p><br>";
                             $("#results2").append("<p>No beer locations near by, try other options</p>");
                             console.log(response);
-                            var myLat = response.location.lat;
-                            var myLng = response.location.lng;
+                            myLat = response.location.lat;
+                            myLng = response.location.lng;
                         })
                 })
         }
@@ -129,7 +129,7 @@
                     var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
                     console.log(D);
                     // console.log("Distance from Current Location to " + response.data[i].name + " is " + Math.trunc(D) + " miles");
-                    response.data[i].distAway = D;
+                    // response.data[i].distAway = D;
                 }
                 console.log(response);
                 var minDaway = Number.POSITIVE_INFINITY;
