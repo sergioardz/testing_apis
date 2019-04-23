@@ -131,6 +131,7 @@
             $.getJSON("Locations.json", function (response) {
                 var latA = response.data[0].latitude;
                 var lngA = response.data[0].longitude;
+                console.log(myLat + ", " + myLng);
                 console.log(latA + ", " + lngA);
                 console.log(distance(myLat, myLng, latA, lngA, unit));
                 // for (i = 0; i < response.data.length; i++) {
