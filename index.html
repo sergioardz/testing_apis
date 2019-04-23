@@ -125,24 +125,24 @@
 
         function closestLoc() {
             $.getJSON("Locations.json", function (response) {
-                console.log()
-                for (i = 0; i < response.data.length; i++) {
-                    var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
-                    console.log(D);
-                    // console.log("Distance from Current Location to " + response.data[i].name + " is " + Math.trunc(D) + " miles");
-                    response.data[i].distAway = D;
-                }
-                console.log(response);
-                var minDaway = Number.POSITIVE_INFINITY;
-                var minDawayLoc;
-                for (i = 0; i < response.data.length; i++) {
-                    if (response.data[i].distAway < minDaway) {
-                        minDaway = response.data[i].distAway;
-                        minDawayLoc = response.data[i].name;
-                    }
-                }
-                console.log(minDaway);
-                console.log(minDawayLoc);
+                console.log(distance(myLat, myLng, response.data[0].latitude, response.data[0].longitude, unit));
+                // for (i = 0; i < response.data.length; i++) {
+                //     var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
+                //     console.log(D);
+                //     // console.log("Distance from Current Location to " + response.data[i].name + " is " + Math.trunc(D) + " miles");
+                //     response.data[i].distAway = D;
+                // }
+                // console.log(response);
+                // var minDaway = Number.POSITIVE_INFINITY;
+                // var minDawayLoc;
+                // for (i = 0; i < response.data.length; i++) {
+                //     if (response.data[i].distAway < minDaway) {
+                //         minDaway = response.data[i].distAway;
+                //         minDawayLoc = response.data[i].name;
+                //     }
+                // }
+                // console.log(minDaway);
+                // console.log(minDawayLoc);
             })
         }
 
