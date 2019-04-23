@@ -66,8 +66,8 @@
 
         const apiKeyIP = "at_knMW8P4hXMF72fVn0z8jG2ZnwPsAy";
 
-        var myLat;
-        var myLng;
+        // var myLat;
+        // var myLng;
         var unit = "M";
 
         $("#current").on("click", function (event) {
@@ -99,6 +99,8 @@
                             myLng = response.location.lng;
                         })
                 })
+            console.log(myLat + ", " + myLng);
+
         }
 
         function distance(lat1, lon1, lat2, lon2, unit) {
@@ -125,7 +127,7 @@
 
         function closestLoc() {
 
-            
+
             $.getJSON("Locations.json", function (response) {
                 var latA = response.data[0].latitude;
                 var lngA = response.data[0].longitude;
