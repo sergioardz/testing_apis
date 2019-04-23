@@ -127,28 +127,16 @@
                                 var myLatLng = { lat: minDawayLat, lng: minDawayLng };
                                 var auxquery = minDawayLoc + " " + minDawayLity + ", " + minDawayReg;
                                 console.log(auxquery);
-                                var closeLoc = new google.maps.LatLng(30.267153, -97.743057);
+                                var closeLoc = new google.maps.LatLng(minDawayLat, minDawayLng);
                                 infowindow = new google.maps.InfoWindow();
                                 map = new google.maps.Map(
-                                    document.getElementById("map"), { center: closeLoc, zoom: 10 });
+                                    document.getElementById("map"), { center: closeLoc, zoom: 9 });
                                 var marker = new google.maps.Marker({
                                     position: myLatLng,
                                     map: map,
                                     title: auxquery
                                 });
-                                var geo = new google.maps.Geocoder;
-                                var address = minDawayLity + ", " + minDawayReg;
-                                geo.geocode({ 'address': address }, function (results, status) {
-                                    if (status == google.maps.GeocoderStatus.OK) {
-                                        var myLatLng2 = results[0].geometry.location;
-
-                                        // Add some code to work with myLatLng
-                                        console.log(myLatLng2);              
-
-                                    } else {
-                                        alert("Geocode was not successful for the following reason: " + status);
-                                    }
-                                });
+                                
                                 // var request = {
                                 //     query: "Oskar Blues Austin, Texas",
                                 //     fields: ["name", "geometry"],
