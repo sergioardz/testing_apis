@@ -108,12 +108,16 @@
                                         minDawayLoc = response.data[i].name;
                                         minDawayLity = response.data[i].locality;
                                         minDawayReg = response.data[i].region;
+                                        minDawayLat = response.data[i].latitude;
+                                        minDawayLng = response.data[i].longitude;
                                     }
                                 }
                                 console.log(minDaway);
                                 console.log(minDawayLoc);
                                 console.log(minDawayLity);
                                 console.log(minDawayReg);
+                                console.log(minDawayLat);
+                                console.log(minDawayLng);
                                 $("#results2").append("<p>The closest location is in: " + minDawayLity + ", " + minDawayReg + "</p>");
                             })
                             // Current with Google Maps
@@ -125,10 +129,10 @@
 
 
                             function initMap() {
-                                var houston = new google.maps.LatLng(29.7604, -95.3698);
+                                var closeLoc = new google.maps.LatLng(minDawayLat, minDawayLng);
                                 infowindow = new google.maps.InfoWindow();
                                 map = new google.maps.Map(
-                                    document.getElementById("map"), { center: houston, zoom: 10 });
+                                    document.getElementById("map"), { center: closeLoc, zoom: 10 });
                                 var request = {
                                     query: auxquery,
                                     fields: ["name", "geometry"],
