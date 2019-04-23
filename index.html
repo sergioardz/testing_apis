@@ -70,11 +70,7 @@
         var myLng;
         var unit = "M";
 
-        $("#current").on("click", function (event) {
-            event.preventDefault();
-            getcurrentIP();
-            closestLoc();
-        });
+        $("#current").on("click", getcurrentIP);
 
         function getcurrentIP() {
             $.ajax({
@@ -97,10 +93,28 @@
                             console.log(response);
                             myLat = response.location.lat;
                             myLng = response.location.lng;
+                            $.getJSON("Locations.json", function (response) {
+                                for (i = 0; i < response.data.length; i++) {
+                                    var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
+                                    console.log(D);
+                                    // console.log("Distance from Current Location to " + response.data[i].name + " is " + Math.trunc(D) + " miles");
+                                    // response.data[i].distAway = D;
+                                }
+                                console.log(response);
+                                var minDaway = Number.POSITIVE_INFINITY;
+                                var minDawayLoc;
+                                for (i = 0; i < response.data.length; i++) {
+                                    if (response.data[i].distAway < minDaway) {
+                                        minDaway = response.data[i].distAway;
+                                        minDawayLoc = response.data[i].name;
+                                    }
+                                }
+                                console.log(minDaway);
+                                console.log(minDawayLoc);
+                            })
                         })
                 })
         }
-        console.log(myLat + ", " + myLng);
 
         function distance(lat1, lon1, lat2, lon2, unit) {
             if ((lat1 == lat2) && (lon1 == lon2)) {
@@ -122,28 +136,6 @@
                 if (unit == "N") { dist = dist * 0.8684 }
                 return dist;
             }
-        }
-
-        function closestLoc() {
-            $.getJSON("Locations.json", function (response) {
-                for (i = 0; i < response.data.length; i++) {
-                    var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
-                    console.log(D);
-                    // console.log("Distance from Current Location to " + response.data[i].name + " is " + Math.trunc(D) + " miles");
-                    // response.data[i].distAway = D;
-                }
-                console.log(response);
-                var minDaway = Number.POSITIVE_INFINITY;
-                var minDawayLoc;
-                for (i = 0; i < response.data.length; i++) {
-                    if (response.data[i].distAway < minDaway) {
-                        minDaway = response.data[i].distAway;
-                        minDawayLoc = response.data[i].name;
-                    }
-                }
-                console.log(minDaway);
-                console.log(minDawayLoc);
-            })
         }
 
         // Current with Google Maps
