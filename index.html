@@ -69,6 +69,7 @@
         var myLat;
         var myLng;
         var unit = "M";
+        ip = {};
 
         $("#current").on("click", function (event) {
             event.preventDefault();
@@ -97,10 +98,11 @@
                             console.log(response);
                             myLat = response.location.lat;
                             myLng = response.location.lng;
+                            ip = response;
                         })
                 })
             console.log(myLat + ", " + myLng);
-
+            console.log(ip);
         }
 
         function distance(lat1, lon1, lat2, lon2, unit) {
