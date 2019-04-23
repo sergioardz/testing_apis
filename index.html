@@ -69,8 +69,6 @@
         var myLat;
         var myLng;
         var unit = "M";
-        ip = {};
-        geo = {};
 
         $("#current").on("click", function (event) {
             event.preventDefault();
@@ -85,7 +83,7 @@
                 .done(function (response) {
                     console.log(response);
                     var currentIP = response;
-                    var geo = $.ajax({
+                    $.ajax({
                         url: "https://geo.ipify.org/api/v1",
                         dataType: "json",
                         data: { apiKey: apiKeyIP, ipAddress: currentIP }
@@ -97,14 +95,10 @@
                             $("#results2").append("<br><p>Current Location: " + response.location.city + ", " + response.location.region + ", " + response.location.country) + "</p><br>";
                             $("#results2").append("<p>No beer locations near by, try other options</p>");
                             console.log(response);
-                            myLat = response.location.lat;
-                            myLng = response.location.lng;
-                            ip = response;
+                            var myLat = response.location.lat;
+                            var myLng = response.location.lng;
                         })
-                });
-            console.log(geo);
-            console.log(myLat + ", " + myLng);
-            console.log(ip);
+                })
         }
 
         function distance(lat1, lon1, lat2, lon2, unit) {
@@ -130,30 +124,24 @@
         }
 
         function closestLoc() {
-
-
             $.getJSON("Locations.json", function (response) {
-                var latA = response.data[0].latitude;
-                var lngA = response.data[0].longitude;
-                console.log(latA + ", " + lngA);
-                console.log(distance(myLat, myLng, latA, lngA, unit));
-                // for (i = 0; i < response.data.length; i++) {
-                //     var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
-                //     console.log(D);
-                //     // console.log("Distance from Current Location to " + response.data[i].name + " is " + Math.trunc(D) + " miles");
-                //     response.data[i].distAway = D;
-                // }
-                // console.log(response);
-                // var minDaway = Number.POSITIVE_INFINITY;
-                // var minDawayLoc;
-                // for (i = 0; i < response.data.length; i++) {
-                //     if (response.data[i].distAway < minDaway) {
-                //         minDaway = response.data[i].distAway;
-                //         minDawayLoc = response.data[i].name;
-                //     }
-                // }
-                // console.log(minDaway);
-                // console.log(minDawayLoc);
+                for (i = 0; i < response.data.length; i++) {
+                    var D = distance(myLat, myLng, response.data[i].latitude, response.data[i].longitude, unit);
+                    console.log(D);
+                    console.log("Distance from Current Location to " + response.data[i].name + " is " + Math.trunc(D) + " miles");
+                    response.data[i].distAway = D;
+                }
+                console.log(response);
+                var minDaway = Number.POSITIVE_INFINITY;
+                var minDawayLoc;
+                for (i = 0; i < response.data.length; i++) {
+                    if (response.data[i].distAway < minDaway) {
+                        minDaway = response.data[i].distAway;
+                        minDawayLoc = response.data[i].name;
+                    }
+                }
+                console.log(minDaway);
+                console.log(minDawayLoc);
             })
         }
 
