@@ -55,8 +55,11 @@
     <div id="results4"></div>
 
 
-    <script
+    <!-- <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw8hFnyQv4weAe34Uhrba3H22o52PYXKc&callback=initMap&libraries=places"
+        async defer></script> -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw8hFnyQv4weAe34Uhrba3H22o52PYXKc&libraries=places"
         async defer></script>
     <script>
 
@@ -140,7 +143,7 @@
                                         map.setCenter(results[0].geometry.location);
                                     }
                                 });
-                                
+
                             })
 
                         })
