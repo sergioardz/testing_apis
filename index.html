@@ -137,7 +137,8 @@
                                     title: auxquery
                                 });
                                 var geo = new google.maps.Geocoder;
-                                geo.geocode({ 'address': minDawayLity }, function (results, status) {
+                                var address = minDawayLity + ", " + minDawayReg;
+                                geo.geocode({ 'address': address }, function (results, status) {
                                     if (status == google.maps.GeocoderStatus.OK) {
                                         var myLatLng2 = results[0].geometry.location;
 
