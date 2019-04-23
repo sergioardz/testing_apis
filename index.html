@@ -69,7 +69,11 @@
         var myLat;
         var myLng;
 
-        $("#current").on("click", getcurrentIP);
+        $("#current").on("click", function (event) {
+            event.preventDefault();
+            getcurrentIP();
+            closestLoc();
+        });
 
         function getcurrentIP() {
             $.ajax({
@@ -138,7 +142,6 @@
                 console.log(minDaway);
                 console.log(minDawayLoc);
             })
-
         }
 
         // Current with Google Maps
