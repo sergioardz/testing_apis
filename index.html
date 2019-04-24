@@ -142,6 +142,191 @@
                                     title: auxquery
                                 });
 
+                                var weatherkey = "3eaf6100e9b1bdb38f073d8f5016bcf2";
+                                // var city = "El Paso";
+                                var latitud = minDawayLat;
+                                var longitud = minDawayLng;
+                                var url5 = "https://api.openweathermap.org/data/2.5/forecast";
+                                var urlHoy = "https://api.openweathermap.org/data/2.5/weather";
+                                var hoy = moment(new Date()).format("MMM DD YYYY");
+                                var hoyDayOfWeek = moment(hoy).format('dddd');
+                                var hcity, hlatitud, hlongitud, htemp, hcountry, hhumidity, hdesc, hicon, hIconLocation = "";
+                                var t1, t2 = 0;
+
+                                // Getting today's forecast
+                                $.ajax({
+                                    url: urlHoy, //API Call
+                                    dataType: "json",
+                                    type: "GET",
+                                    async: false,
+                                    data: {
+                                        lat: latitud,
+                                        lon: longitud,
+                                        appid: weatherkey,
+                                        units: "metric"
+                                    },
+                                    success: function (datahoy) {
+                                        console.log('Received dataHoy:', datahoy)
+                                        hcity = datahoy.name;
+                                        hlatitud = datahoy.coord.lat;
+                                        hlongitud = datahoy.coord.lon;
+                                        hcountry = datahoy.sys.country;
+                                        htemp = Math.round(datahoy.main.temp) + "°C";
+                                        hhumidity = datahoy.main.humidity + "%";
+                                        hdesc = datahoy.weather[0].description;
+                                        hicon = datahoy.weather[0].icon;
+                                        hIconLocation = "https://openweathermap.org/img/w/" + hicon + ".png";
+                                    }
+                                });
+
+                                tSummary = {
+                                    header: [hoy, hoyDayOfWeek, hcity, hlatitud, hlongitud, hcountry, htemp, hhumidity, hdesc, hIconLocation],
+                                    day: [],
+                                    maxi: [],
+                                    mini: [],
+                                    iconos: []
+                                };
+
+                                var row1 = $("<tr>").append(
+                                    $("<td>").text(tSummary.header[2] + ", " + tSummary.header[5])
+                                );
+                                var row2 = $("<tr>").append(
+                                    $("<td>").text(tSummary.header[1]),
+                                    $("<td>").text(tSummary.header[0])
+                                );
+                                var icon1 = "<img src=" + hIconLocation + " />";
+                                var row3 = $("<tr>").append(
+                                    $("<td>").text(tSummary.header[6]),
+                                );
+                                $("#wrapper").append(row1, row2, icon1, row3);
+
+                                // $('#t0DayOfWeek').text(tSummary.header[1]);
+                                // $('#t0Date').text(tSummary.header[0]);
+                                // $('#tCity').text(tSummary.header[2] + ", " + tSummary.header[5]);
+                                // $('#t0temp').text(tSummary.header[6]);
+                                // $("#t0Icon").attr('src', hIconLocation);
+
+
+                                // Getting info from 5 days in the future forecast
+                                $.ajax({
+                                    url: url5, //API Call
+                                    dataType: "json",
+                                    type: "GET",
+                                    async: false,
+                                    data: {
+                                        lat: latitud,
+                                        lon: longitud,
+                                        appid: weatherkey,
+                                        units: "metric",
+                                        cnt: "40"
+                                    },
+                                    success: function (data5) {
+                                        console.log('Received dataForecast:', data5)
+                                        $.each(data5.list, function (index, val) {
+                                            var hora = val.dt_txt.substr(val.dt_txt.length - 8);
+                                            if (hora === "03:00:00") {
+                                                var fday = val.dt_txt.substr(8, 2);
+                                                var fmonth = val.dt_txt.substr(5, 2);
+                                                var fyear = val.dt_txt.substr(0, 4);
+                                                var ffecha = fmonth + "/" + fday + "/" + fyear;
+                                                var fformat = "MM/DD/YYYY";
+                                                var fconverted = moment(ffecha, fformat);
+                                                var fDayOfWeek = moment(fconverted).format('dddd').substr(0, 3) + " " + fday;
+                                                t1 = Math.round(val.main.temp_min) + "°C";
+                                                var fhumidity = val.main.humidity + "%";
+                                                var fdesc = val.weather[0].description;
+                                                var ficon = val.weather[0].icon;
+                                                var fIconLocation = "https://openweathermap.org/img/w/" + ficon + ".png";
+                                                tSummary.day.push(fDayOfWeek);
+                                                tSummary.iconos.push(fIconLocation);
+                                            }
+                                            if (hora === "15:00:00") {
+                                                t2 = Math.round(val.main.temp_max) + "°C";
+                                                if (t1 < t2) {
+                                                    tSummary.maxi.push(t2);
+                                                    tSummary.mini.push(t1);
+                                                }
+                                                else {
+                                                    tSummary.maxi.push(t1);
+                                                    tSummary.mini.push(t2);
+                                                }
+                                                t1, t2 = 0;
+                                            }
+                                        });
+                                    }
+
+                                })
+
+                                var row4 = $("<tr>").append(
+                                    $("<td>").text("Date"),
+                                    $("<td>").text(tSummary.day[0]),
+                                    $("<td>").text(tSummary.day[1]),
+                                    $("<td>").text(tSummary.day[2]),
+                                    $("<td>").text(tSummary.day[3]),
+                                    $("<td>").text(tSummary.day[4]),
+                                );
+                                var icon2 = "<img src=" + tSummary.iconos[0] + " />";
+                                var icon3 = "<img src=" + tSummary.iconos[1] + " />";
+                                var icon4 = "<img src=" + tSummary.iconos[2] + " />";
+                                var icon5 = "<img src=" + tSummary.iconos[3] + " />";
+                                var icon6 = "<img src=" + tSummary.iconos[4] + " />";
+
+                                var row5 = $("<tr>").append(
+                                    $("<td>").text("FC"),
+                                    $("<td>").append(icon2),
+                                    $("<td>").append(icon3),
+                                    $("<td>").append(icon4),
+                                    $("<td>").append(icon5),
+                                    $("<td>").append(icon6),
+                                );
+                                var row6 = $("<tr>").append(
+                                    $("<td>").text("Max"),
+                                    $("<td>").text(tSummary.maxi[0]),
+                                    $("<td>").text(tSummary.maxi[1]),
+                                    $("<td>").text(tSummary.maxi[2]),
+                                    $("<td>").text(tSummary.maxi[3]),
+                                    $("<td>").text(tSummary.maxi[4]),
+                                );
+                                var row7 = $("<tr>").append(
+                                    $("<td>").text("Min"),
+                                    $("<td>").text(tSummary.mini[0]),
+                                    $("<td>").text(tSummary.mini[1]),
+                                    $("<td>").text(tSummary.mini[2]),
+                                    $("<td>").text(tSummary.mini[3]),
+                                    $("<td>").text(tSummary.mini[4]),
+                                );
+
+                                $("#wrapper2").append(row4, row5, row7, row6);
+
+                                // Printing info from 5 days in the future forecast
+                                // $('#t1DayOfWeek').text(tSummary.day[0]);
+                                // $("#t1Icon").attr("src", tSummary.iconos[0]); 
+                                // $('#t1maxtemp').text(tSummary.maxi[0]);
+                                // $('#t1mintemp').text(tSummary.mini[0]);
+
+                                // $('#t2DayOfWeek').text(tSummary.day[1]);
+                                // $("#t2Icon").attr("src", tSummary.iconos[1]);
+                                // $('#t2maxtemp').text(tSummary.maxi[1]);
+                                // $('#t2mintemp').text(tSummary.mini[1]);
+
+                                // $('#t3DayOfWeek').text(tSummary.day[2]);
+                                // $("#t3Icon").attr("src", tSummary.iconos[2]);
+                                // $('#t3maxtemp').text(tSummary.maxi[2]);
+                                // $('#t3mintemp').text(tSummary.mini[2]);
+
+                                // $('#t4DayOfWeek').text(tSummary.day[3]);
+                                // $("#t4Icon").attr("src", tSummary.iconos[3]);
+                                // $('#t4maxtemp').text(tSummary.maxi[3]);
+                                // $('#t4mintemp').text(tSummary.mini[3]);
+
+                                // $('#t5DayOfWeek').text(tSummary.day[4]);
+                                // $("#t5Icon").attr("src", tSummary.iconos[4]);
+                                // $('#t5maxtemp').text(tSummary.maxi[4]);
+                                // $('#t5mintemp').text(tSummary.mini[4]);
+
+                                console.log(tSummary);
+                                getRestaurant(tSummary.header[2], tSummary.header[5]);
+
                                 // var request = {
                                 //     query: "Oskar Blues Austin, Texas",
                                 //     fields: ["name", "geometry"],
