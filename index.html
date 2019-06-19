@@ -71,7 +71,7 @@
         var queryURLIP = "https://api.ipify.org?";
         // console.log(queryURLIP);
 
-        const apiKeyIP = "at_knMW8P4hXMF72fVn0z8jG2ZnwPsAy";
+        const apiKeyIP = "";
 
         var myLat;
         var myLng;
@@ -415,7 +415,7 @@
                 var lng = position.coords.longitude;
                 console.log("Latitude: " + lat);
                 console.log("Longitude: " + lng);
-                $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=false&key=AIzaSyDw8hFnyQv4weAe34Uhrba3H22o52PYXKc", function (data) {
+                $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=false&key=", function (data) {
                     console.log(data);
                     console.log(data.results[6].formatted_address);
                 })
@@ -1135,7 +1135,7 @@
 
         // Random
 
-        // const apikeyBDB = "/?key=9968a2f544553322a8a49f3fb2916c09";
+        // const apikeyBDB = "/?key=";
         // var baseURL = "https://sandbox-api.brewerydb.com/v2/";
         // var randomBeer = "beer/random";
         // var queryURLrandom = baseURL + randomBeer + apikeyBDB + "&withBreweries=Y";
